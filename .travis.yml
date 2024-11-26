@@ -1,4 +1,15 @@
 language: python
 python:
-- 3.8
-script: python test_one.py
+  - 3.8
+jobs:
+  include:
+    - stage: "first stage"
+      script: python test_one.py
+    - stage: "the stage runs if draft is true"
+      script: |
+        echo "Draft condition is TRUE. Running draft-specific tasks..."
+      if: draft = true
+    - stage: "the stage runs if draft is false"
+      script: |
+        echo "Draft condition is FALSE. Running non-draft-specific tasks..."
+      if: draft = false
